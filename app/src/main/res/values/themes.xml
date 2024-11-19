@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.StoryApp" parent="Base.Theme.StoryApp" />
+    <style name="Theme.StoryApp" parent="Base.Theme.StoryApp">
+        <item name="colorPrimary">#415473</item>
+    </style>
 </resources>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="email_hint">johndoe@email.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="invalid_email">The email you entered is invalid</string>
+    <string name="invalid_password">Password must contain at least 8 character</string>
 </resources>

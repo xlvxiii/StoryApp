@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,8 +9,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:context=".ui.login.LoginActivity"
-        android:padding="8dp">
+        tools:context=".ui.register.RegisterActivity">
 
         <ImageView
             android:id="@+id/img_welcome"
@@ -25,13 +23,13 @@
             />
 
         <TextView
-            android:id="@+id/tv_login"
+            android:id="@+id/tv_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/img_welcome"
-            android:text="@string/login"
+            android:text="@string/sign_up"
             android:textSize="32sp"
             android:textStyle="bold"
             />
@@ -39,11 +37,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_label_email"
+            android:id="@+id/tv_label_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_login"
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up"
             android:layout_marginStart="24dp"
             android:layout_marginTop="18dp"
+            android:text="@string/name"
+            android:textSize="16sp"
+            />
+
+        <EditText
+            android:id="@+id/input_name"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:autofillHints="name"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_label_name"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/name_hint"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_label_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_name"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
             android:text="@string/email"
             android:textSize="16sp"
             />
@@ -88,7 +112,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_sign_up"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_password"
@@ -96,17 +120,17 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             app:cornerRadius="8dp"
-            android:text="@string/login"
+            android:text="@string/sign_up"
             android:textSize="18sp"
             />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/tv_dont_have_an_account"
-            app:layout_constraintBottom_toBottomOf="@id/tv_dont_have_an_account"
+            app:layout_constraintTop_toTopOf="@id/tv_already_have_an_account"
+            app:layout_constraintBottom_toBottomOf="@id/tv_already_have_an_account"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_dont_have_an_account"
+            app:layout_constraintEnd_toStartOf="@id/tv_already_have_an_account"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="12dp"
             />
@@ -114,20 +138,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_dont_have_an_account"
+            android:id="@+id/tv_already_have_an_account"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login"
+            app:layout_constraintTop_toBottomOf="@id/btn_sign_up"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="12dp"
-            android:text="@string/dont_have_an_account"
+            android:text="@string/already_have_an_account"
             />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/tv_dont_have_an_account"
-            app:layout_constraintBottom_toBottomOf="@id/tv_dont_have_an_account"
-            app:layout_constraintStart_toEndOf="@id/tv_dont_have_an_account"
+            app:layout_constraintTop_toTopOf="@id/tv_already_have_an_account"
+            app:layout_constraintBottom_toBottomOf="@id/tv_already_have_an_account"
+            app:layout_constraintStart_toEndOf="@id/tv_already_have_an_account"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="24dp"
@@ -136,16 +160,16 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_sign_up"
+            android:id="@+id/btn_login"
             style="@style/Widget.Material3.Button.OutlinedButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dont_have_an_account"
+            app:layout_constraintTop_toBottomOf="@id/tv_already_have_an_account"
             android:layout_marginTop="12dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             app:cornerRadius="8dp"
-            android:text="@string/sign_up"
+            android:text="@string/login"
             android:textSize="18sp"
             />
 

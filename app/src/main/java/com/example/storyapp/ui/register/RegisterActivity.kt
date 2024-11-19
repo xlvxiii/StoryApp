@@ -1,25 +1,23 @@
-package com.example.storyapp.ui.login
+package com.example.storyapp.ui.register
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.storyapp.R
-import com.example.storyapp.databinding.ActivityLoginBinding
-import com.example.storyapp.ui.register.RegisterActivity
+import com.example.storyapp.databinding.ActivityRegisterBinding
+import com.example.storyapp.ui.login.LoginActivity
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
 
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -29,8 +27,8 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnSignUp.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+        binding.btnLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }

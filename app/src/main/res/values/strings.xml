@@ -7,4 +7,6 @@
     <string name="password_hint">Enter your password</string>
     <string name="invalid_email">The email you entered is invalid</string>
     <string name="invalid_password">Password must contain at least 8 character</string>
+    <string name="dont_have_an_account">Dont have an account?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

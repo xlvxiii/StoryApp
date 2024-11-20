@@ -7,9 +7,11 @@
     <string name="password_hint">Enter your password</string>
     <string name="invalid_email">The email you entered is invalid</string>
     <string name="invalid_password">Password must contain at least 8 character</string>
-    <string name="dont_have_an_account">Dont have an account?</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="name">Name</string>
     <string name="name_hint">Enter your name</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="empty_input">This field must not be empty</string>
+    <string name="invalid_form">You must follow the instructions to fill the form correctly</string>
 </resources>

@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.storyapp.data.api.ApiService
+import com.example.storyapp.data.response.ErrorResponse
+import com.example.storyapp.data.response.LoginResult
 import com.example.storyapp.data.response.RegisterResponse
 import com.google.gson.Gson
 import retrofit2.HttpException
@@ -22,6 +24,23 @@ class UserRepository private constructor(private val apiService: ApiService) {
             val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
             val errorMessage = errorBody.message
             Log.d("UserRepository", "register: ${e.message.toString()} \nError Message: $errorMessage")
+            emit(Result.Error(errorMessage))
+        }
+    }
+
+    fun login(email: String, password: String) : LiveData<Result<LoginResult>> = liveData {
+        emit(Result.Loading)
+        try {
+            // Handle the response
+            val response = apiService.login(email, password)
+            val loginResult = response.loginResult
+            emit(Result.Success(loginResult))
+        } catch (e: HttpException) {
+            // Handle the exception
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Log.d("UserRepository", "login: ${e.message.toString()} \nError Message: $errorMessage")
             emit(Result.Error(errorMessage))
         }
     }

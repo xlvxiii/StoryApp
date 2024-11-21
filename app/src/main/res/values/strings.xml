@@ -14,4 +14,7 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="empty_input">This field must not be empty</string>
     <string name="invalid_form">You must follow the instructions to fill the form correctly</string>
+    <string name="welcome">Welcome,</string>
+    <string name="logout">Logout</string>
+    <string name="add_story">Add Story</string>
 </resources>

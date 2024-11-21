@@ -60,6 +60,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // coroutine
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
     // glide
     implementation(libs.glide)
 
@@ -70,4 +74,13 @@ dependencies {
 
     // lifecycleScope
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // viewmodelScope
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // livedata
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // datastore
+    implementation(libs.androidx.datastore.preferences)
+
+
 }

@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.storyapp.R
@@ -21,6 +22,8 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = ActivityRegisterBinding.inflate(layoutInflater)
 
@@ -47,7 +50,8 @@ class RegisterActivity : AppCompatActivity() {
             btnSignUp.setOnClickListener {
                 if (inputName.text.toString().isNotEmpty() && inputName.error == null
                     && inputEmail.text.toString().isNotEmpty() && inputEmail.error == null
-                    && inputPassword.text.toString().isNotEmpty() && inputPassword.error == null) {
+                    && inputPassword.text.toString().isNotEmpty() && inputPassword.error == null)
+                {
                     val name: String = inputName.text.toString()
                     val email: String = inputEmail.text.toString()
                     val password: String = inputPassword.text.toString()

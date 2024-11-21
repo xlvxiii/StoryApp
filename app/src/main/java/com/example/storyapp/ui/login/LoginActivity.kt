@@ -2,18 +2,24 @@ package com.example.storyapp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.storyapp.ui.home.MainActivity
 import com.example.storyapp.R
+import com.example.storyapp.data.repositories.Result
 import com.example.storyapp.databinding.ActivityLoginBinding
 import com.example.storyapp.ui.register.RegisterActivity
+import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,10 +35,58 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnSignUp.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
+        // initiate viewmodel
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this.application)
+        val loginViewModel: LoginViewModel by viewModels {
+            factory
+        }
+
+        binding.apply {
+            btnSignUp.setOnClickListener {
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            btnLogin.setOnClickListener {
+                if (inputEmail.text.toString().isNotEmpty() && inputEmail.error == null
+                    && inputPassword.text.toString().isNotEmpty() && inputPassword.error == null)
+                {
+                    val email: String = inputEmail.text.toString()
+                    val password: String = inputPassword.text.toString()
+
+                    loginViewModel.login(email, password).observe(this@LoginActivity) {
+                        response ->
+
+                        if (response != null) {
+                            when (response) {
+                                is Result.Loading -> {
+                                    circularProgress.visibility = View.VISIBLE
+                                    main.alpha = 0.5f
+                                }
+                                is Result.Success -> {
+                                    loginViewModel.saveSession(response.data.token, response.data.userId, response.data.name)
+                                    main.alpha = 1f
+                                    circularProgress.visibility = View.GONE
+
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                is Result.Error -> {
+                                    main.alpha = 1f
+                                    circularProgress.visibility = View.GONE
+                                    Snackbar.make(root, response.error, Snackbar.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    val snackbar = Snackbar.make(root, R.string.invalid_form, Snackbar.LENGTH_SHORT)
+                    snackbar.show()
+                }
+            }
         }
     }
 }

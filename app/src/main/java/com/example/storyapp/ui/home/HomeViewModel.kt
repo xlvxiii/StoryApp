@@ -12,12 +12,8 @@ class HomeViewModel(
     private val storyRepository: StoryRepository,
     private val sessionPreferences: SessionPreferences
 ) : ViewModel() {
-//    fun getStories() = storyRepository.getStories()
-//    fun logout() {
-//        viewModelScope.launch {
-//            sessionPreferences.logout()
-//        }
-//    }
+    fun getStories() = storyRepository.getAllStories()
+
     fun getSession(): LiveData<String?> {
         return sessionPreferences.getSessionToken().asLiveData()
     }

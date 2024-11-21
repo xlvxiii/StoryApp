@@ -17,4 +17,6 @@
     <string name="welcome">Welcome,</string>
     <string name="logout">Logout</string>
     <string name="add_story">Add Story</string>
+    <string name="story_image">Story Image</string>
+    <string name="story">Story</string>
 </resources>

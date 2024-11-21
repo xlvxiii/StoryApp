@@ -18,6 +18,7 @@ activity = "1.9.3"
 constraintlayout = "2.2.0"
 retrofit = "2.9.0"
 lifecycleRuntimeKtx = "2.8.7"
+shimmer= "0.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +39,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", name = "core-ktx", version.ref = "lifecycleRuntimeKtx" }
+facebook-shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:padding="4dp"
     >
-    
+
     <ImageView
         android:id="@+id/img_story"
         android:layout_width="75dp"
@@ -19,34 +20,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="12dp"
-        tools:src="@tools:sample/avatars"
+        android:background="@color/shimmerColor"
         />
 
     <TextView
         android:id="@+id/tv_sender"
-        android:layout_width="0dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/img_story"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv_desc"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textSize="21sp"
         android:textStyle="bold"
-        tools:text="@tools:sample/full_names"
+        android:background="@color/shimmerColor"
         />
 
     <TextView
-        android:id="@+id/tv_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textSize="18sp"
+        android:id="@+id/tv_desc"
         app:layout_constraintStart_toEndOf="@id/img_story"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_sender"
-        tools:text="@tools:sample/lorem/random" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:background="@color/shimmerColor"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

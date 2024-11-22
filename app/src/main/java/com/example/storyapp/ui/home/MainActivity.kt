@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.ui.login.LoginActivity
 import com.example.storyapp.data.repositories.Result
+import com.example.storyapp.ui.stoy_detail.StoryDetailActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -97,17 +99,23 @@ class MainActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallback(
             object : StoryAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: ListStoryItem) {
-                    Snackbar.make(binding.root, data.name ?: "empty", Snackbar.LENGTH_SHORT).show()
-//                    showDetailActivity(data.id)
+                override fun onItemClicked(
+                    data: ListStoryItem,
+                    optionsCompat: ActivityOptionsCompat
+                ) {
+                    showDetailActivity(data.id, optionsCompat)
                 }
             }
         )
     }
 
-//    private fun showDetailActivity(id: String?) {
-//        val intent = Intent(this, DetailActivity::class.java)
-//        intent.putExtra(DetailActivity.EXTRA_ID, id)
-//        startActivity(intent)
-//    }
+    private fun showDetailActivity(id: String?, optionsCompat: ActivityOptionsCompat) {
+        val intent = Intent(this, StoryDetailActivity::class.java)
+        intent.putExtra(EXTRA_ID, id)
+        startActivity(intent, optionsCompat.toBundle())
+    }
+
+    companion object {
+        const val EXTRA_ID: String = "story_id"
+    }
 }

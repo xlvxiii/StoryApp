@@ -6,6 +6,10 @@ import androidx.lifecycle.liveData
 import com.example.storyapp.data.api.ApiService
 import com.example.storyapp.data.local.preferences.SessionPreferences
 import com.example.storyapp.data.response.ListStoryItem
+import com.example.storyapp.data.response.RegisterResponse
+import com.example.storyapp.data.response.Story
+import com.google.gson.Gson
+import retrofit2.HttpException
 
 class StoryRepository private constructor(private val apiService: ApiService) {
 
@@ -18,6 +22,21 @@ class StoryRepository private constructor(private val apiService: ApiService) {
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))
             Log.d("StoryRepository", "getAllStories: ${e.message.toString()}")
+        }
+    }
+
+    fun getStoryById(id: String): LiveData<Result<Story>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStoryById(id)
+            val story = response.story
+            emit(Result.Success(story))
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, RegisterResponse::class.java)
+            val errorMessage = errorBody.message
+            emit(Result.Error(errorMessage))
+            Log.d("StoryRepository", "getStoryById: ${e.message.toString()}")
         }
     }
 

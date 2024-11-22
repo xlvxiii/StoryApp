@@ -1,7 +1,10 @@
 package com.example.storyapp.ui.home
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +18,7 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DI
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    class StoryViewHolder(private val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
+    class StoryViewHolder(val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(story: ListStoryItem) {
             binding.tvSender.text = story.name
             binding.tvDesc.text = story.description
@@ -37,7 +40,12 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DI
         holder.bind(story)
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(story)
+            val optionsCompat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as Activity,
+                    Pair(holder.binding.imgStory, "story_image")
+                )
+            onItemClickCallback.onItemClicked(story, optionsCompat)
         }
     }
 
@@ -62,6 +70,6 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DI
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: ListStoryItem)
+        fun onItemClicked(data: ListStoryItem, optionsCompat: ActivityOptionsCompat)
     }
 }

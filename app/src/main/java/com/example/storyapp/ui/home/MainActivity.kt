@@ -17,6 +17,7 @@ import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.ui.login.LoginActivity
 import com.example.storyapp.data.repositories.Result
+import com.example.storyapp.ui.add_story.AddStoryActivity
 import com.example.storyapp.ui.stoy_detail.StoryDetailActivity
 import com.google.android.material.snackbar.Snackbar
 
@@ -55,15 +56,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnLogout.setOnClickListener {
-            homeViewModel.logout()
+        binding.apply {
+            btnLogout.setOnClickListener {
+                homeViewModel.logout()
+            }
+
+            rvStories.layoutManager = LinearLayoutManager(this@MainActivity)
+
+            btnAddStory.setOnClickListener {
+                startActivity(Intent(this@MainActivity, AddStoryActivity::class.java))
+            }
         }
 
         homeViewModel.getName().observe(this) {
             binding.tvName.text = it
         }
-
-        binding.rvStories.layoutManager = LinearLayoutManager(this)
 
         homeViewModel.getStories().observe(this) { stories ->
             if (stories != null) {

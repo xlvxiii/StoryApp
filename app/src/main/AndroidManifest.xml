@@ -15,6 +15,10 @@
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.add_story.AddStoryActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
             android:name=".ui.stoy_detail.StoryDetailActivity"
             android:exported="false" />
         <activity

@@ -23,7 +23,9 @@ import com.example.storyapp.utils.getImageUri
 import com.example.storyapp.utils.reduceFileImage
 import com.example.storyapp.utils.uriToFile
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -39,7 +41,8 @@ class AddStoryActivity : AppCompatActivity() {
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            imageUri = uri
+            viewModel.imageUri = uri
+            imageUri = viewModel.imageUri ?: Uri.EMPTY
             binding.imgPreview.setImageURI(imageUri)
         } else {
             Log.d("Photo Picker", "No media selected")
@@ -51,6 +54,7 @@ class AddStoryActivity : AppCompatActivity() {
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
+            imageUri = viewModel.imageUri ?: Uri.EMPTY
             imageUri.let { uri ->
                 Log.d("Image URI", "showImage: $uri")
                 binding.imgPreview.setImageURI(uri)
@@ -77,8 +81,11 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
         // initiate viewModel
-        val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[AddStoryViewModel::class.java]
+        viewModel.imageUri.let { uri ->
+            imageUri = uri ?: Uri.EMPTY
+            if (imageUri != Uri.EMPTY) binding.imgPreview.setImageURI(imageUri)
+        }
 
         binding.apply {
             btnGallery.setOnClickListener {
@@ -104,45 +111,49 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
-        imageUri = getImageUri(this)
+        viewModel.imageUri = getImageUri(this)
+        imageUri = viewModel.imageUri ?: Uri.EMPTY
         launcherIntentCamera.launch(imageUri)
     }
 
     private fun uploadStory() {
-        imageUri.let { uri ->
-            val imageFile = uriToFile(uri, this) .reduceFileImage()
-            Log.d("Image File", "showImage: ${imageFile.path}")
-            val desc = binding.edAddDescription.text.toString()
-            showLoading(true)
+        showLoading(true)
+        lifecycleScope.launch(Dispatchers.Default) {
+            imageUri.let { uri ->
+                val imageFile = uriToFile(uri, this@AddStoryActivity) .reduceFileImage()
+                Log.d("Image File", "showImage: ${imageFile.path}")
+                val desc = binding.edAddDescription.text.toString()
 
-            val requestBody = desc.toRequestBody("text/plain".toMediaType())
-            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBody = MultipartBody.Part.createFormData(
-                "photo",
-                imageFile.name,
-                requestImageFile
-            )
+                val requestBody = desc.toRequestBody("text/plain".toMediaType())
+                val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+                val multipartBody = MultipartBody.Part.createFormData(
+                    "photo",
+                    imageFile.name,
+                    requestImageFile
+                )
 
-            lifecycleScope.launch {
-                viewModel.addStory(requestBody, multipartBody).observe(this@AddStoryActivity) { result: Result<StoryUploadResponse>? ->
-                    if (result != null) {
-                        when (result) {
-                            is Result.Loading -> showLoading(true)
-                            is Result.Success -> {
-                                showLoading(false)
-                                Log.d("AddStoryActivity", "uploadStory: ${result.data.message}")
-                                val intent = Intent(this@AddStoryActivity, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                startActivity(intent)
-                            }
-                            is Result.Error -> {
-                                showLoading(false)
-                                Snackbar.make(binding.root, result.error, Snackbar.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    viewModel.addStory(requestBody, multipartBody).observe(this@AddStoryActivity) { result: Result<StoryUploadResponse>? ->
+                        if (result != null) {
+                            when (result) {
+                                is Result.Loading -> showLoading(true)
+                                is Result.Success -> {
+                                    showLoading(false)
+                                    Log.d("AddStoryActivity", "uploadStory: ${result.data.message}")
+                                    val intent = Intent(this@AddStoryActivity, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    startActivity(intent)
+                                }
+                                is Result.Error -> {
+                                    showLoading(false)
+                                    Snackbar.make(binding.root, result.error, Snackbar.LENGTH_SHORT).show()
+                                }
                             }
                         }
                     }
                 }
             }
+
         }
     }
 
@@ -150,10 +161,10 @@ class AddStoryActivity : AppCompatActivity() {
         binding.apply {
             if (isLoading) {
                 progressCircular.visibility = View.VISIBLE
-                main.alpha = 0.5f
+                scrollView.alpha = 0.5f
             } else {
                 progressCircular.visibility = View.GONE
-                main.alpha = 1f
+                scrollView.alpha = 1f
             }
         }
     }

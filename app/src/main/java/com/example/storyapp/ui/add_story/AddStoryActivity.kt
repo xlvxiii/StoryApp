@@ -20,6 +20,7 @@ import com.example.storyapp.data.response.StoryUploadResponse
 import com.example.storyapp.databinding.ActivityAddStoryBinding
 import com.example.storyapp.ui.home.MainActivity
 import com.example.storyapp.utils.getImageUri
+import com.example.storyapp.utils.reduceFileImage
 import com.example.storyapp.utils.uriToFile
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -109,7 +110,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun uploadStory() {
         imageUri.let { uri ->
-            val imageFile = uriToFile(uri, this) //.reduceFileImage()
+            val imageFile = uriToFile(uri, this) .reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
             val desc = binding.edAddDescription.text.toString()
             showLoading(true)

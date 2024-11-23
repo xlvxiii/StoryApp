@@ -85,4 +85,5 @@ dependencies {
     // shimmer
     implementation(libs.facebook.shimmer)
 
+    implementation(libs.androidx.exifinterface)
 }

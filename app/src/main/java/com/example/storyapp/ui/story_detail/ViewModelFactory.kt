@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.stoy_detail
+package com.example.storyapp.ui.story_detail
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

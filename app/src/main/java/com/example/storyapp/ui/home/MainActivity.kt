@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
 import com.example.storyapp.data.response.ListStoryItem
@@ -18,12 +19,13 @@ import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.ui.login.LoginActivity
 import com.example.storyapp.data.repositories.Result
 import com.example.storyapp.ui.add_story.AddStoryActivity
-import com.example.storyapp.ui.stoy_detail.StoryDetailActivity
+import com.example.storyapp.ui.story_detail.StoryDetailActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // initiate viewModel
-//        val viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[MainViewModel::class.java]
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this.application)
-        val homeViewModel: HomeViewModel by viewModels {
-            factory
-        }
+        homeViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[HomeViewModel::class.java]
 
         homeViewModel.getSession().observe(this) {
             if (it == null) {
@@ -72,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             binding.tvName.text = it
         }
 
+        getStories()
+    }
+
+    private fun getStories() {
         homeViewModel.getStories().observe(this) { stories ->
             if (stories != null) {
                 when (stories) {

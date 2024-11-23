@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.stoy_detail
+package com.example.storyapp.ui.story_detail
 
 import androidx.lifecycle.ViewModel
 import com.example.storyapp.data.repositories.StoryRepository

@@ -1,7 +1,6 @@
-package com.example.storyapp.ui.stoy_detail
+package com.example.storyapp.ui.story_detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels

@@ -96,7 +96,7 @@ class AddStoryActivity : AppCompatActivity() {
                 startCamera()
             }
 
-            btnUpload.setOnClickListener {
+            buttonAdd.setOnClickListener {
                 if (this@AddStoryActivity::imageUri.isInitialized) {
                     uploadStory()
                 } else {

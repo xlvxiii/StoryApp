@@ -52,13 +52,13 @@ class StoryDetailActivity : AppCompatActivity() {
                     is Result.Success -> {
                         binding.main.alpha = 1f
                         binding.progressCircular.visibility = View.GONE
-                        binding.tvSender.text = story.data.name
-                        binding.tvDesc.text = story.data.description
+                        binding.tvDetailName.text = story.data.name
+                        binding.tvDetailDescription.text = story.data.description
                         Glide.with(applicationContext).load(story.data.photoUrl)
                             .apply(RequestOptions
                                 .placeholderOf(R.drawable.outline_image_24)
                                 .error(R.drawable.rounded_broken_image_24))
-                            .into(binding.imgStory)
+                            .into(binding.ivDetailPhoto)
                     }
                     is Result.Error -> {
                         binding.progressCircular.visibility = View.GONE

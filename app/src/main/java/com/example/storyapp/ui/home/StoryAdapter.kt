@@ -20,13 +20,13 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DI
 
     class StoryViewHolder(val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(story: ListStoryItem) {
-            binding.tvSender.text = story.name
+            binding.tvItemName.text = story.name
             binding.tvDesc.text = story.description
             Glide.with(binding.root.context).load(story.photoUrl)
                 .apply(RequestOptions.placeholderOf(
                     R.drawable.outline_image_24).error(R.drawable.rounded_broken_image_24))
                 .circleCrop()
-                .into(binding.imgStory)
+                .into(binding.ivItemPhoto)
         }
     }
 
@@ -43,7 +43,7 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DI
             val optionsCompat: ActivityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(
                     holder.itemView.context as Activity,
-                    Pair(holder.binding.imgStory, "story_image")
+                    Pair(holder.binding.ivItemPhoto, "story_image")
                 )
             onItemClickCallback.onItemClicked(story, optionsCompat)
         }

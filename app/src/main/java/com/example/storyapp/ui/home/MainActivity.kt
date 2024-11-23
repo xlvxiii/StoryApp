@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityOptionsCompat
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.apply {
-            btnLogout.setOnClickListener {
+            actionLogout.setOnClickListener {
                 homeViewModel.logout()
             }
 

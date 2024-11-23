@@ -49,11 +49,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
             btnLogin.setOnClickListener {
-                if (inputEmail.text.toString().isNotEmpty() && inputEmail.error == null
-                    && inputPassword.text.toString().isNotEmpty() && inputPassword.error == null)
+                if (edLoginEmail.text.toString().isNotEmpty() && edLoginEmail.error == null
+                    && edLoginPassword.text.toString().isNotEmpty() && edLoginPassword.error == null)
                 {
-                    val email: String = inputEmail.text.toString()
-                    val password: String = inputPassword.text.toString()
+                    val email: String = edLoginEmail.text.toString()
+                    val password: String = edLoginPassword.text.toString()
 
                     loginViewModel.login(email, password).observe(this@LoginActivity) {
                         response ->

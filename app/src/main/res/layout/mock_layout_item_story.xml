@@ -11,7 +11,7 @@
     >
 
     <ImageView
-        android:id="@+id/img_story"
+        android:id="@+id/iv_mock_img_story"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="@string/story_image"
@@ -24,10 +24,10 @@
         />
 
     <TextView
-        android:id="@+id/tv_sender"
+        android:id="@+id/tv_mock_item_name"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/img_story"
+        app:layout_constraintStart_toEndOf="@id/iv_mock_img_story"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv_desc"
         android:layout_marginStart="8dp"
@@ -40,9 +40,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_desc"
-        app:layout_constraintStart_toEndOf="@id/img_story"
+        app:layout_constraintStart_toEndOf="@id/iv_mock_img_story"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_sender"
+        app:layout_constraintTop_toBottomOf="@id/tv_mock_item_name"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="8dp"
         android:textSize="18sp"

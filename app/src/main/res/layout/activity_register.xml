@@ -48,7 +48,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_sign_up" />
 
             <com.example.storyapp.ui.custom_view.CustomTextField
-                android:id="@+id/input_name"
+                android:id="@+id/ed_register_name"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
@@ -69,10 +69,10 @@
                 android:text="@string/email"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_name" />
+                app:layout_constraintTop_toBottomOf="@id/ed_register_name" />
 
             <com.example.storyapp.ui.custom_view.CustomEmailTextField
-                android:id="@+id/input_email"
+                android:id="@+id/ed_register_email"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
@@ -91,10 +91,10 @@
                 android:text="@string/password"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_email" />
+                app:layout_constraintTop_toBottomOf="@id/ed_register_email" />
 
             <com.example.storyapp.ui.custom_view.CustomPasswordTextField
-                android:id="@+id/input_password"
+                android:id="@+id/ed_register_password"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="24dp"
@@ -117,7 +117,7 @@
                 app:cornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_password" />
+                app:layout_constraintTop_toBottomOf="@id/ed_register_password" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="0dp"

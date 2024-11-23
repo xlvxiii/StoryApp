@@ -48,13 +48,13 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             btnSignUp.setOnClickListener {
-                if (inputName.text.toString().isNotEmpty() && inputName.error == null
-                    && inputEmail.text.toString().isNotEmpty() && inputEmail.error == null
-                    && inputPassword.text.toString().isNotEmpty() && inputPassword.error == null)
+                if (binding.edRegisterName.text.toString().isNotEmpty() && edRegisterName.error == null
+                    && edRegisterEmail.text.toString().isNotEmpty() && edRegisterEmail.error == null
+                    && edRegisterPassword.text.toString().isNotEmpty() && edRegisterPassword.error == null)
                 {
-                    val name: String = inputName.text.toString()
-                    val email: String = inputEmail.text.toString()
-                    val password: String = inputPassword.text.toString()
+                    val name: String = edRegisterName.text.toString()
+                    val email: String = edRegisterEmail.text.toString()
+                    val password: String = edRegisterPassword.text.toString()
 
                     registerViewModel.register(name, email, password).observe(this@RegisterActivity) {
                         response ->

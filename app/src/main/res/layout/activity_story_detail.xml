@@ -12,7 +12,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".ui.story_detail.StoryDetailActivity">
 
             <TextView
@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:id="@+id/img_story"
+                android:id="@+id/iv_detail_photo"
                 android:contentDescription="@string/story_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,10 +40,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_sender"
+                android:id="@+id/tv_detail_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_story"
+                app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
                 android:textSize="16sp"
@@ -54,10 +54,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_desc"
+                android:id="@+id/tv_detail_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_sender"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_name"
                 android:layout_marginStart="12dp"
                 tools:text="Makan bang"
                 />

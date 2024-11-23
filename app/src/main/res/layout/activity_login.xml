@@ -53,7 +53,7 @@
                 />
 
             <com.example.storyapp.ui.custom_view.CustomEmailTextField
-                android:id="@+id/input_email"
+                android:id="@+id/ed_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_label_password"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_email"
+                app:layout_constraintTop_toBottomOf="@id/ed_login_email"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="24dp"
                 android:text="@string/password"
@@ -77,7 +77,7 @@
                 />
 
             <com.example.storyapp.ui.custom_view.CustomPasswordTextField
-                android:id="@+id/input_password"
+                android:id="@+id/ed_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
                 android:id="@+id/btn_login"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_password"
+                app:layout_constraintTop_toBottomOf="@id/ed_login_password"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"

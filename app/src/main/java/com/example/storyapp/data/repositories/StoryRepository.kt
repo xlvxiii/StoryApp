@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.storyapp.data.api.ApiService
-import com.example.storyapp.data.local.preferences.SessionPreferences
 import com.example.storyapp.data.response.ErrorResponse
 import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.data.response.Story
@@ -61,7 +60,7 @@ class StoryRepository private constructor(private val apiService: ApiService) {
         @Volatile
         private var instance: StoryRepository? = null
 
-        fun getInstance(apiService: ApiService, pref: SessionPreferences): StoryRepository =
+        fun getInstance(apiService: ApiService): StoryRepository =
             instance ?: synchronized(this) {
                 instance ?: StoryRepository(apiService)
             }.also { instance = it }

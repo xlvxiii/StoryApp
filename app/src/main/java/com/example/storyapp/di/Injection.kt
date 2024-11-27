@@ -23,6 +23,6 @@ object Injection {
         val pref = SessionPreferences.getInstance(context.dataStore)
         val user = runBlocking { pref.getSessionToken().first() }
         val apiService = ApiConfig.getApiService(user)
-        return StoryRepository.getInstance(apiService, pref)
+        return StoryRepository.getInstance(apiService)
     }
 }

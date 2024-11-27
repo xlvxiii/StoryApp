@@ -31,12 +31,6 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
         }
     }
 
-    fun getUserId(): Flow<String?> {
-        return dataStore.data.map { preferences ->
-            preferences[USER_ID]
-        }
-    }
-
     suspend fun saveUserId(userId: String) {
         dataStore.edit { preferences ->
             preferences[USER_ID] = userId

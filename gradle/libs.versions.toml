@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+#noinspection GradleDependency
 datastorePreferences = "1.0.0"
 glide = "4.16.0"
 #noinspection GradleDependency
@@ -10,15 +11,20 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+#noinspection GradleDependency,GradleDependency
 kotlinxCoroutinesCore = "1.5.2"
+#noinspection GradleDependency,GradleDependency
 lifecycleViewmodelKtx = "2.6.1"
+#noinspection GradleDependency
 loggingInterceptor = "4.11.0"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
+#noinspection GradleDependency,GradleDependency
 retrofit = "2.9.0"
 lifecycleRuntimeKtx = "2.8.7"
 shimmer= "0.5.0"
+#noinspection GradleDependency
 exifinterface = "1.3.6"
 
 [libraries]

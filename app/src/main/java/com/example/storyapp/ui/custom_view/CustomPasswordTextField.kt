@@ -2,13 +2,11 @@ package com.example.storyapp.ui.custom_view
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import com.example.storyapp.R
 
 class CustomPasswordTextField @JvmOverloads constructor(

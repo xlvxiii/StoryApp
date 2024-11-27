@@ -20,4 +20,9 @@
     <string name="story_image">Story Image</string>
     <string name="story">Story</string>
     <string name="desc_hint">Type caption here</string>
+    <string name="image_preview">image preview</string>
+    <string name="gallery">Gallery</string>
+    <string name="open_camera">open camera</string>
+    <string name="upload_story">Upload story</string>
+    <string name="no_stories">There are no recent story posted</string>
 </resources>

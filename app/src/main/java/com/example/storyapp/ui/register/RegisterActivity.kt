@@ -1,5 +1,7 @@
 package com.example.storyapp.ui.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -84,6 +86,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
+        playAnimation()
     }
 
     private fun showSuccessDialog() {
@@ -99,5 +102,22 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         builder.create().show()
+    }
+
+    private fun playAnimation() {
+        val name = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 0f, 1f).setDuration(200)
+        val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 0f, 1f).setDuration(200)
+        val password = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 0f, 1f).setDuration(200)
+        val login = ObjectAnimator.ofFloat((binding.btnLogin), View.ALPHA, 0f, 11f).setDuration(200)
+        val register = ObjectAnimator.ofFloat(binding.btnSignUp, View.ALPHA, 0f, 1f).setDuration(200)
+
+        val together = AnimatorSet().apply {
+            playTogether(login, register)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(name, email, password, together)
+            start()
+        }
     }
 }

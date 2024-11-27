@@ -81,7 +81,11 @@ class MainActivity : AppCompatActivity() {
                         binding.shimmerLayout.startShimmer()
                     }
                     is Result.Success -> {
-                        setStoriesData(stories.data)
+                        if (stories.data.isNotEmpty()) {
+                            setStoriesData(stories.data)
+                        } else {
+                            Snackbar.make(binding.root, R.string.no_stories, Snackbar.LENGTH_SHORT).show()
+                        }
                         binding.shimmerLayout.apply {
                             stopShimmer()
                             visibility = View.GONE

@@ -83,8 +83,10 @@ class AddStoryActivity : AppCompatActivity() {
         // initiate viewModel
         viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[AddStoryViewModel::class.java]
         viewModel.imageUri.let { uri ->
-            imageUri = uri ?: Uri.EMPTY
-            if (imageUri != Uri.EMPTY) binding.imgPreview.setImageURI(imageUri)
+            if (uri != null) {
+                imageUri = uri
+                binding.imgPreview.setImageURI(imageUri)
+            }
         }
 
         binding.apply {
@@ -97,10 +99,10 @@ class AddStoryActivity : AppCompatActivity() {
             }
 
             buttonAdd.setOnClickListener {
-                if (this@AddStoryActivity::imageUri.isInitialized) {
+                if (this@AddStoryActivity::imageUri.isInitialized && imageUri != Uri.EMPTY) {
                     uploadStory()
                 } else {
-                    Snackbar.make(binding.root, "Please select an image first", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(root, "Please select an image first", Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

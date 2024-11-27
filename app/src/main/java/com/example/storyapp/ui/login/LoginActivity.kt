@@ -1,5 +1,7 @@
 package com.example.storyapp.ui.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -87,6 +89,24 @@ class LoginActivity : AppCompatActivity() {
                     snackbar.show()
                 }
             }
+        }
+
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        val title = ObjectAnimator.ofFloat(binding.tvLogin, View.ALPHA, 0f, 1f).setDuration(200)
+        val edLoginEmail = ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 0f, 1f).setDuration(200)
+        val edLoginPassword = ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 0f, 1f).setDuration(200)
+        val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 0f, 1f).setDuration(200)
+        val btnSignup = ObjectAnimator.ofFloat(binding.btnSignUp, View.ALPHA, 0f, 1f).setDuration(200)
+
+        val together = AnimatorSet().apply {
+            playTogether(btnLogin, btnSignup)
+        }
+        AnimatorSet().apply {
+            playSequentially(title, edLoginEmail, edLoginPassword, together)
+            start()
         }
     }
 }

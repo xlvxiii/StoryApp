@@ -64,5 +64,9 @@ class StoryRepository private constructor(private val apiService: ApiService) {
             instance ?: synchronized(this) {
                 instance ?: StoryRepository(apiService)
             }.also { instance = it }
+
+        fun clear() {
+            instance = null
+        }
     }
 }

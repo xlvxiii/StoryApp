@@ -17,6 +17,7 @@ import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.ui.login.LoginActivity
 import com.example.storyapp.data.repositories.Result
+import com.example.storyapp.data.repositories.StoryRepository
 import com.example.storyapp.ui.add_story.AddStoryActivity
 import com.example.storyapp.ui.story_detail.StoryDetailActivity
 import com.google.android.material.snackbar.Snackbar
@@ -42,10 +43,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         // initiate viewModel
-        homeViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[HomeViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
 
         homeViewModel.getSession().observe(this) {
-            if (it == null) {
+            if (it.isNullOrEmpty() || it == "") {
+                ViewModelFactory.clear()
+                StoryRepository.clear()
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -83,6 +88,10 @@ class MainActivity : AppCompatActivity() {
                     is Result.Success -> {
                         if (stories.data.isNotEmpty()) {
                             setStoriesData(stories.data)
+                            val message: String? = intent.getStringExtra(EXTRA_MESSAGE)
+                            if (message != null) {
+                                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+                            }
                         } else {
                             Snackbar.make(binding.root, R.string.no_stories, Snackbar.LENGTH_SHORT).show()
                         }
@@ -129,5 +138,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID: String = "story_id"
+        const val EXTRA_MESSAGE: String = "message"
     }
 }

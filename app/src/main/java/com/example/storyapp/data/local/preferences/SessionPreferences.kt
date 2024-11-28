@@ -6,8 +6,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "session")
 
@@ -19,9 +23,19 @@ class SessionPreferences private constructor(private val dataStore: DataStore<Pr
         }
     }
 
+    fun getSessionTokenSync(): String? {
+        return runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[SESSION_TOKEN]
+            }.first()
+        }
+    }
+
     suspend fun saveSessionToken(token: String) {
-        dataStore.edit { preferences ->
-            preferences[SESSION_TOKEN] = token
+        withContext(Dispatchers.IO) {
+            dataStore.edit { preferences ->
+                preferences[SESSION_TOKEN] = token
+            }
         }
     }
 

@@ -32,5 +32,9 @@ class ViewModelFactory private constructor(
                 Injection.provideSessionPreferences(context)
             )
         }
+
+        fun clear() {
+            instance = null
+        }
     }
 }

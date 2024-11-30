@@ -60,6 +60,8 @@ class AddStoryActivity : AppCompatActivity() {
                 binding.imgPreview.setImageURI(uri)
             }
         } else {
+            viewModel.imageUri = null
+            imageUri = Uri.EMPTY
             Log.d("Camera intent", "No photo taken")
             Snackbar.make(binding.root, "No photo taken", Snackbar.LENGTH_SHORT).show()
         }
@@ -100,7 +102,11 @@ class AddStoryActivity : AppCompatActivity() {
 
             buttonAdd.setOnClickListener {
                 if (this@AddStoryActivity::imageUri.isInitialized && imageUri != Uri.EMPTY) {
-                    uploadStory()
+                    if (edAddDescription.text.isNullOrEmpty()) {
+                        Snackbar.make(root, "Please fill the description first", Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        uploadStory()
+                    }
                 } else {
                     Snackbar.make(root, "Please select an image first", Snackbar.LENGTH_SHORT).show()
                 }

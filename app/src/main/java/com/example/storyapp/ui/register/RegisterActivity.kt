@@ -76,7 +76,7 @@ class RegisterActivity : AppCompatActivity() {
                                     main.alpha = 1f
                                     progressCircular.visibility = View.GONE
                                     Snackbar.make(root, response.error, Snackbar.LENGTH_SHORT).show()
-                                    }
+                                }
                             }
                         }
                     }

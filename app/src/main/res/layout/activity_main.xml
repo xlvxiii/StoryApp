@@ -74,6 +74,7 @@
                 android:id="@+id/tv_story"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title_divider"
+                android:layout_marginTop="16dp"
                 android:textSize="21sp"
                 android:text="@string/story"
                 android:textStyle="bold"
@@ -100,6 +101,18 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_name"
                 android:contentDescription="@string/logout"
                 android:id="@+id/action_logout"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                app:icon="@drawable/baseline_person_pin_circle_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_story"
+                app:layout_constraintBottom_toBottomOf="@id/tv_story"
+                android:contentDescription="Map"
+                android:id="@+id/action_map"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

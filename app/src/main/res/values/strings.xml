@@ -25,4 +25,5 @@
     <string name="open_camera">open camera</string>
     <string name="upload_story">Upload story</string>
     <string name="no_stories">There are no recent story posted</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

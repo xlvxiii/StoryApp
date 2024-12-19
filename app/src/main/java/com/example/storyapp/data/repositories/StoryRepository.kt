@@ -56,6 +56,18 @@ class StoryRepository private constructor(private val apiService: ApiService) {
         }
     }
 
+    fun getStoriesWithLocation(): LiveData<Result<List<ListStoryItem>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getStoriesWithLocation()
+            val stories = response.listStory
+            emit(Result.Success(stories))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+            Log.d("StoryRepository", "getStoriesWithLocation: ${e.message.toString()}")
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: StoryRepository? = null

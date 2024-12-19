@@ -19,6 +19,7 @@ import com.example.storyapp.ui.login.LoginActivity
 import com.example.storyapp.data.repositories.Result
 import com.example.storyapp.data.repositories.StoryRepository
 import com.example.storyapp.ui.add_story.AddStoryActivity
+import com.example.storyapp.ui.map.MapsActivity
 import com.example.storyapp.ui.story_detail.StoryDetailActivity
 import com.google.android.material.snackbar.Snackbar
 
@@ -61,6 +62,10 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             actionLogout.setOnClickListener {
                 homeViewModel.logout()
+            }
+
+            actionMap.setOnClickListener {
+                startActivity(Intent(this@MainActivity, MapsActivity::class.java))
             }
 
             rvStories.layoutManager = LinearLayoutManager(this@MainActivity)

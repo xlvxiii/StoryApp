@@ -1,6 +1,7 @@
 package com.example.storyapp.ui.map
 
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.example.storyapp.data.repositories.Result
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.snackbar.Snackbar
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -66,6 +68,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         getMyLocation()
+        setMapStyle()
 
         // Add a marker in Sydney and move the camera
 //        val sydney = LatLng(-34.0, 151.0)
@@ -85,7 +88,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 //        )
 //        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
 
-        fetchAndMarkCurrentLocation()
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isIndoorLevelPickerEnabled = true
         mMap.uiSettings.isCompassEnabled = true
@@ -151,6 +153,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", exception)
+        }
+    }
+
     private fun fetchAndMarkCurrentLocation() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
@@ -185,5 +199,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         DrawableCompat.setTint(vectorDrawable, color)
         vectorDrawable.draw(canvas)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+
+    companion object {
+        private const val TAG = "MapsActivity"
     }
 }

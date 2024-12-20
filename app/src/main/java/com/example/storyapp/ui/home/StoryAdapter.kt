@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,15 +15,15 @@ import com.example.storyapp.R
 import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.databinding.ItemStoriesBinding
 
-class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     class StoryViewHolder(val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(story: ListStoryItem) {
-            binding.tvItemName.text = story.name
-            binding.tvDesc.text = story.description
-            Glide.with(binding.root.context).load(story.photoUrl)
+        fun bind(story: ListStoryItem?) {
+            binding.tvItemName.text = story?.name
+            binding.tvDesc.text = story?.description
+            Glide.with(binding.root.context).load(story?.photoUrl)
                 .apply(RequestOptions.placeholderOf(
                     R.drawable.outline_image_24).error(R.drawable.rounded_broken_image_24))
                 .circleCrop()
@@ -70,6 +71,6 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DI
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: ListStoryItem, optionsCompat: ActivityOptionsCompat)
+        fun onItemClicked(data: ListStoryItem?, optionsCompat: ActivityOptionsCompat)
     }
 }

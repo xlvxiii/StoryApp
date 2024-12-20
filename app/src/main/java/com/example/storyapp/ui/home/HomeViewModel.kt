@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.example.storyapp.data.local.preferences.SessionPreferences
 import com.example.storyapp.data.repositories.StoryRepository
 import kotlinx.coroutines.launch
@@ -12,7 +13,9 @@ class HomeViewModel(
     private val storyRepository: StoryRepository,
     private val sessionPreferences: SessionPreferences
 ) : ViewModel() {
-    fun getStories() = storyRepository.getAllStories()
+
+    val stories = storyRepository.getStories().cachedIn(viewModelScope)
+//    fun getStories() = storyRepository.getAllStories()
 
     fun getSession(): LiveData<String?> {
         return sessionPreferences.getSessionToken().asLiveData()

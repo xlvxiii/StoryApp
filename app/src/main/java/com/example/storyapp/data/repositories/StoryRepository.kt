@@ -3,7 +3,12 @@ package com.example.storyapp.data.repositories
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.example.storyapp.data.api.ApiService
+import com.example.storyapp.data.paging.StoryPagingSource
 import com.example.storyapp.data.response.ErrorResponse
 import com.example.storyapp.data.response.ListStoryItem
 import com.example.storyapp.data.response.Story
@@ -25,6 +30,15 @@ class StoryRepository private constructor(private val apiService: ApiService) {
             emit(Result.Error(e.message.toString()))
             Log.d("StoryRepository", "getAllStories: ${e.message.toString()}")
         }
+    }
+
+    fun getStories(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(pageSize = 5),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService)
+            }
+        ).liveData
     }
 
     fun getStoryById(id: String): LiveData<Result<Story>> = liveData {

@@ -60,8 +60,17 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    androidTestImplementation(libs.androidx.core.testing) //InstantTaskExecutorRule
+    androidTestImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+
+    testImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
+    testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
 
     // coroutine
     implementation(libs.kotlinx.coroutines.core)
@@ -89,4 +98,7 @@ dependencies {
     implementation(libs.facebook.shimmer)
 
     implementation(libs.androidx.exifinterface)
+
+    // paging
+    implementation(libs.androidx.paging.runtime.ktx)
 }

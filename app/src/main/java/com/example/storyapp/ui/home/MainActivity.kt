@@ -83,57 +83,79 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getStories() {
-        homeViewModel.getStories().observe(this) { stories ->
-            if (stories != null) {
-                when (stories) {
-                    is Result.Loading -> {
-                        binding.shimmerLayout.visibility = View.VISIBLE
-                        binding.shimmerLayout.startShimmer()
-                    }
-                    is Result.Success -> {
-                        if (stories.data.isNotEmpty()) {
-                            setStoriesData(stories.data)
-                            val message: String? = intent.getStringExtra(EXTRA_MESSAGE)
-                            if (message != null) {
-                                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-                            }
-                        } else {
-                            Snackbar.make(binding.root, R.string.no_stories, Snackbar.LENGTH_SHORT).show()
+//        homeViewModel.getStories().observe(this) { stories ->
+//            if (stories != null) {
+//                when (stories) {
+//                    is Result.Loading -> {
+//                        binding.shimmerLayout.visibility = View.VISIBLE
+//                        binding.shimmerLayout.startShimmer()
+//                    }
+//                    is Result.Success -> {
+//                        if (stories.data.isNotEmpty()) {
+//                            setStoriesData(stories.data)
+//                            val message: String? = intent.getStringExtra(EXTRA_MESSAGE)
+//                            if (message != null) {
+//                                Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+//                            }
+//                        } else {
+//                            Snackbar.make(binding.root, R.string.no_stories, Snackbar.LENGTH_SHORT).show()
+//                        }
+//                        binding.shimmerLayout.apply {
+//                            stopShimmer()
+//                            visibility = View.GONE
+//                        }
+//                    }
+//                    is Result.Error -> {
+//                        binding.shimmerLayout.apply {
+//                            stopShimmer()
+//                            visibility = View.GONE
+//                        }
+//                        Log.e("MainActivity", "Error: ${stories.error}")
+//                        Snackbar.make(this, binding.root, stories.error, Snackbar.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//        }
+        val adapter = StoryAdapter()
+        binding.rvStories.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+
+        homeViewModel.stories.observe(this) {
+            if (it != null) {
+                adapter.submitData(lifecycle, it)
+                adapter.setOnItemClickCallback(
+                    object : StoryAdapter.OnItemClickCallback {
+                        override fun onItemClicked(
+                            data: ListStoryItem?,
+                            optionsCompat: ActivityOptionsCompat
+                        ) {
+                            showDetailActivity(data?.id, optionsCompat)
                         }
-                        binding.shimmerLayout.apply {
-                            stopShimmer()
-                            visibility = View.GONE
-                        }
                     }
-                    is Result.Error -> {
-                        binding.shimmerLayout.apply {
-                            stopShimmer()
-                            visibility = View.GONE
-                        }
-                        Log.e("MainActivity", "Error: ${stories.error}")
-                        Snackbar.make(this, binding.root, stories.error, Snackbar.LENGTH_SHORT).show()
-                    }
-                }
+                )
             }
         }
     }
 
-    private fun setStoriesData(stories: List<ListStoryItem>) {
-        val adapter = StoryAdapter()
-        adapter.submitList(stories)
-        binding.rvStories.adapter = adapter
-
-        adapter.setOnItemClickCallback(
-            object : StoryAdapter.OnItemClickCallback {
-                override fun onItemClicked(
-                    data: ListStoryItem,
-                    optionsCompat: ActivityOptionsCompat
-                ) {
-                    showDetailActivity(data.id, optionsCompat)
-                }
-            }
-        )
-    }
+//    private fun setStoriesData(stories: List<ListStoryItem>) {
+//        val adapter = StoryAdapter()
+//        adapter.submitList(stories)
+//        binding.rvStories.adapter = adapter
+//
+//        adapter.setOnItemClickCallback(
+//            object : StoryAdapter.OnItemClickCallback {
+//                override fun onItemClicked(
+//                    data: ListStoryItem,
+//                    optionsCompat: ActivityOptionsCompat
+//                ) {
+//                    showDetailActivity(data.id, optionsCompat)
+//                }
+//            }
+//        )
+//    }
 
     private fun showDetailActivity(id: String?, optionsCompat: ActivityOptionsCompat) {
         val intent = Intent(this, StoryDetailActivity::class.java)
